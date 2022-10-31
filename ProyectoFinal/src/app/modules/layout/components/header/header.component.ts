@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  sidebarToggle() {
+  toggleSidebar() {
     //toggle sidebar function
     this.document.body.classList.toggle('toggle-sidebar');
   }
