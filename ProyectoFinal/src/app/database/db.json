@@ -9,20 +9,14 @@
       "rePassword": "123*"
     },
     {
-      "id": "d737750f-6c50-a9f9-4a57-4b1d187d6258",
-      "name": "miguel",
-      "lastName": "",
-      "email": "jmiguel@gmail.com",
-      "password": "123*",
-      "rePassword": "123*",
-      "token": "auth-token-8d3474bf-c2ed-e162-94be-7952ee6d26a4"
+      "id": "e5cadfff-2b0e-a2f1-38c2-9728be56491b",
+      "name": "Miguel",
+      "lastName": "Carrillo",
+      "email": "carrillo@gmail.com",
+      "password": "123",
+      "rePassword": "123",
+      "token": "auth-token-693efbb6-c55c-e57d-1a5e-31cf7481d06b"
     }
   ],
-  "cursos": [
-    {
-      "id": "d0a6e866-4bda-c247-9d54-9f72b948c7b9",
-      "name": "Desarrollo web",
-      "description": "El concepto de la web ha evolucionado desde su concepción y ahora se refiere a una poderosa plataforma que soporta aplicaciones potentes para las organizaciones. "
-    }
-  ]
+  "cursos": []
 }

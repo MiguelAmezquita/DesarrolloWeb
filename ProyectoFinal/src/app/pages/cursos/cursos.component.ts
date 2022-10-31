@@ -69,7 +69,7 @@ export class CursosComponent implements OnInit {
       const postUsersSub = this.CursoService.createCourse(curso).subscribe({
         next: (value: ICurso) => {
           setTimeout(() => {
-            this.toastr.success("Usuario creado", "Success");
+            this.toastr.success("Curso creado", "Success");
             this.AuthService.isLoadingSubject.next(false);
             this.closeButton.nativeElement.click();
             this.getCourses();
@@ -84,7 +84,7 @@ export class CursosComponent implements OnInit {
       const putUsersSub = this.CursoService.updateCourse(curso).subscribe({
         next: (value: ICurso) => {
           setTimeout(() => {
-            this.toastr.success("Usuario actualizado", "Success");
+            this.toastr.success("Curso actualizado", "Success");
             this.AuthService.isLoadingSubject.next(false);
             this.closeButton.nativeElement.click();
             this.getCourses();
@@ -125,7 +125,7 @@ export class CursosComponent implements OnInit {
       if (result.isConfirmed) {
         const subcriptDelete = this.CursoService.deleteCourse(id).subscribe({
           next: (response: any) => {
-            this.toastr.success("Usuario eliminado", "Success")
+            this.toastr.success("Curso eliminado", "Success")
             this.getCourses();
           },
           error: (err: HttpErrorResponse) => {

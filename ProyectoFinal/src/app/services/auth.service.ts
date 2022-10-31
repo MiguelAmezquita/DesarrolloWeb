@@ -60,8 +60,6 @@ export class AuthService {
 
   async validaToken(): Promise<boolean> {
     await this.getActiVeTokens();
-    console.log(this.Token);
-
     if (!this.Token) {
       this.logout();
       return Promise.resolve(false);
