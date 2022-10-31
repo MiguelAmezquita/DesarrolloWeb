@@ -5,6 +5,10 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { LayoutComponent } from './layout.component';
 import { RouterModule, Routes } from '@angular/router';
 import { Routing } from 'src/app/pages/routing';
+import { FooterComponent } from './components/footer/footer.component';
+import { AsideComponent } from './components/aside/aside.component';
+import { HeaderComponent } from './components/header/header.component';
+import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 
 const routes: Routes = [
   {
@@ -18,7 +22,11 @@ const routes: Routes = [
   declarations: [
     LayoutComponent,
     ToolbarComponent,
-    ContentComponent
+    ContentComponent,
+    FooterComponent,
+    AsideComponent,
+    HeaderComponent,
+    BreadcrumbsComponent
   ],
   imports: [
     CommonModule,
