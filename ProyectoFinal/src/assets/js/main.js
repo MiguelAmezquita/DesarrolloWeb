@@ -7,7 +7,6 @@
 //InitialFunction => () => {
 (function () {
   "use strict";
-  console.log("Estoy aqui");
   /**
    * Easy selector helper function
    */
@@ -24,6 +23,7 @@
    * Easy event listener function
    */
   const on = (type, el, listener, all = false) => {
+    console.log(type);
     if (all) {
       select(el, all).forEach(e => e.addEventListener(type, listener))
     } else {
@@ -42,9 +42,10 @@
    * Sidebar toggle
    */
   if (select('.toggle-sidebar-btn')) {
+    console.log("Togleando");
     on('click', '.toggle-sidebar-btn', function (e) {
       //select('body').classList.toggle('toggle-sidebar')
-      console.log("Toggleado perro");
+      console.log("Toggleado");
     })
   }
 
