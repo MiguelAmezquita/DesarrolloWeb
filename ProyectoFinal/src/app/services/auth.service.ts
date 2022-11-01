@@ -47,6 +47,8 @@ export class AuthService {
     await this.getActiveUser();
     if (token != null) {
       this.Token = JSON.parse(token);
+    } else {
+      this.Token = undefined;
     }
   }
 
