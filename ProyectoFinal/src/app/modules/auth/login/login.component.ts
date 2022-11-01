@@ -16,8 +16,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 export class LoginComponent implements OnInit, OnDestroy {
 
-  loginForm!: FormGroup;
-  hasError!: boolean;
+  loginForm: FormGroup;
+  hasError: boolean;
   isLoading$: Observable<boolean>;
   subs: Subscription[] = [];
 
@@ -47,8 +47,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    console.log(this.loginForm.value);
-
     if (!this.loginForm.valid) {
       Object.keys(this.loginForm.controls).forEach(key => {
         this.loginForm.get(key)?.markAsTouched();
@@ -56,12 +54,13 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.toastr.error('Verify the information entered', 'Error');
       return;
     }
-
-    console.log(this.loginForm.value);
-
+    const email = this.loginForm.controls.email.value;
+    const password = this.loginForm.controls.password.value;
     this.AuthService.isLoadingSubject.next(true);
-    const loginSub = this.loginService.login("", "").subscribe({
-      next: () => {
+    const loginSub = this.loginService.login(email, password).subscribe({
+      next: (result) => {
+        console.log(result);
+
         this.AuthService.isLoadingSubject.next(false);
       },
       error: (err: HttpErrorResponse) => {
