@@ -19,8 +19,6 @@ export class LoginService implements OnDestroy {
   subs: Subscription[] = [];
 
   constructor(
-    private httpClient: HttpClient,
-    private toastr: ToastrService,
     private userService: UserService
   ) { }
 
@@ -31,23 +29,21 @@ export class LoginService implements OnDestroy {
 
 
   login(email: string, password: string) {
-    const notFoundError = new Error('Not Found');
     if (!email || !password) {
-      return of(notFoundError);
+      throw new Error('El email y la contraseña son requeridos');
     }
 
     return this.userService.getAllUsers().pipe(
       map((result: IUser[]) => {
-        console.log(result);
         if (result.length <= 0) {
-          return notFoundError;
+          throw new Error('email o contraseña incorrectos');
         }
         const user = result.find((u) => {
           return (u.email.toLowerCase() === email.toLowerCase() && u.password === password);
         });
 
         if (!user) {
-          return notFoundError;
+          throw new Error('email o contraseña incorrectos');
         }
         user.token = "auth-token-" + Guid.create().toString();
         return user;

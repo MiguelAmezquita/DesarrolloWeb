@@ -6,6 +6,7 @@ import { AuthService } from '../../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { LoginService } from '../../../services/login.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { StorageService } from 'src/app/services';
 
 
 @Component({
@@ -26,7 +27,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private AuthService: AuthService,
     private router: Router,
     private toastr: ToastrService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private storageService: StorageService
   ) {
     this.isLoading$ = this.AuthService.isLoading$
     if (this.AuthService.currentUser$) {
@@ -51,17 +53,17 @@ export class LoginComponent implements OnInit, OnDestroy {
       Object.keys(this.loginForm.controls).forEach(key => {
         this.loginForm.get(key)?.markAsTouched();
       });
-      this.toastr.error('Verify the information entered', 'Error');
+      this.toastr.error('verifique la información ingresada para poder continuar', 'Error');
       return;
     }
     const email = this.loginForm.controls.email.value;
     const password = this.loginForm.controls.password.value;
     this.AuthService.isLoadingSubject.next(true);
     const loginSub = this.loginService.login(email, password).subscribe({
-      next: (result) => {
-        console.log(result);
-
+      next: async (result) => {
         this.AuthService.isLoadingSubject.next(false);
+        await this.AuthService.saveUser(result);
+        this.router.navigate(['/dashboard']);
       },
       error: (err: HttpErrorResponse) => {
         this.AuthService.isLoadingSubject.next(false);

@@ -7,8 +7,12 @@ const Routing: Routes = [
         redirectTo: 'dashboard'
     },
     {
-        path: '',
+        path: 'dashboard',
         loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+    },
+    {
+        path: 'usuarios',
+        loadChildren: () => import('./usuarios/usuarios.module').then((m) => m.UsuariosModule),
     },
     {
         path: '**',

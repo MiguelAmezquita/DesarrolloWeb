@@ -20,6 +20,14 @@ export class UserService {
     return this.httpClient.post<IUser>(API_USERS_URL, user);
   }
 
+  deleteUser(id: string) {
+    return this.httpClient.delete<IUser>(`API_USERS_URL{}/`);
+  }
+
+  updateUser(user: IUser) {
+    return this.httpClient.put<IUser>(`API_USERS_URL{}/`, user);
+  }
+
   getAllUsers(): Observable<IUser[]> {
     return this.httpClient.get<IUser[]>(API_USERS_URL);
   }

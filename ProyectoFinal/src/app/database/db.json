@@ -1,0 +1,20 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "jose",
+      "lastName": "amezquita",
+      "email": "jamezquitac1@miumg.edu.gt",
+      "password": "123*",
+      "image": ""
+    },
+    {
+      "id": 2,
+      "name": "jose",
+      "lastName": "amezquita",
+      "email": "jamezquitac2@miumg.edu.gt",
+      "password": "123*",
+      "image": ""
+    }
+  ]
+}
