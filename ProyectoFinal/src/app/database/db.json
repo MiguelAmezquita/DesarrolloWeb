@@ -6,14 +6,7 @@
       "lastName": "amezquita",
       "email": "jamezquitac1@miumg.edu.gt",
       "password": "123*",
-      "image": ""
-    },
-    {
-      "id": 2,
-      "name": "jose",
-      "lastName": "amezquita",
-      "email": "jamezquitac2@miumg.edu.gt",
-      "password": "123*",
+      "token": "auth-token-9c0a6f0e-2566-1d41-ec1a-a73d2e15f934",
       "image": ""
     }
   ]

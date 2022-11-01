@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router,
     private toastr: ToastrService,
     private loginService: LoginService,
-    private storageService: StorageService
   ) {
     this.isLoading$ = this.AuthService.isLoading$
     if (this.AuthService.currentUser$) {
@@ -70,24 +69,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.toastr.error(err.message, "ERROR");
       }
     });
-
-    // const loginSubscr = this.AuthService.login(this.f.email.value, this.f.password.value)
-    //   .pipe(first())
-    //   .subscribe({
-    //     next: (response: any) => {
-    //       this.AuthService.saveUser(response?.user);
-    //       this.router.navigate([this.returnUrl]);
-    //       this.hasError = false;
-    //       setTimeout(() => {
-    //         this.loginForm.reset();
-    //         this.AuthService.isLoadingSubject.next(false);
-    //       }, 200);
-    //     }, error: async (err: any) => {
-    //       this.hasError = true;
-    //       this.AuthService.isLoadingSubject.next(false);
-    //       this.toastr.error(err?.error?.message || 'Verify the information entered', 'Error');
-    //     }
-    //   });
   }
 
   ngOnDestroy() {
