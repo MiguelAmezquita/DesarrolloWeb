@@ -5,7 +5,7 @@ import { IUser } from '../interfaces';
 import { environment } from 'src/environments/environment';
 import { Guid } from 'guid-typescript';
 
-const API_USERS_URL = `${environment.apiUrl}/users`;
+const API_USERS_URL = `${environment.apiUrl}/usuarios`;
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,6 @@ export class UserService {
   createUser(user: IUser): Observable<any> {
     user.id = Guid.create().toString();
     user.token = 'auth-token-' + Guid.create().toString();
-    console.log(user);
     return this.httpClient.post<IUser>(API_USERS_URL, user);
   }
 

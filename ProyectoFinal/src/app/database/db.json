@@ -1,5 +1,5 @@
 {
-  "users": [
+  "usuarios": [
     {
       "id": "8efbca64-1c77-7e60-1db8-1c62ec046bc1",
       "name": "jose",
@@ -16,6 +16,13 @@
       "password": "123*",
       "rePassword": "123*",
       "token": "auth-token-8d3474bf-c2ed-e162-94be-7952ee6d26a4"
+    }
+  ],
+  "cursos": [
+    {
+      "id": "d0a6e866-4bda-c247-9d54-9f72b948c7b9",
+      "name": "Desarrollo web",
+      "description": "El concepto de la web ha evolucionado desde su concepción y ahora se refiere a una poderosa plataforma que soporta aplicaciones potentes para las organizaciones. "
     }
   ]
 }
