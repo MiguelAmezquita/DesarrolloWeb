@@ -4,6 +4,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthRoutingModule } from './modules/auth/auth-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { ToastrModule } from 'ngx-toastr';
 
 
@@ -11,6 +13,7 @@ import { ToastrModule } from 'ngx-toastr';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
     AppRoutingModule,

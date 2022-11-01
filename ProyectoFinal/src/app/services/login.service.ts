@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root'
 })
+
 export class LoginService implements OnDestroy {
 
   subs: Subscription[] = [];
@@ -22,13 +23,6 @@ export class LoginService implements OnDestroy {
 
 
   login(user: string, password: string) {
-    const loginSub = this.httpClient.post("", { user, password }).subscribe({
-      next: (response: any) => {
-
-      }, error: (err: HttpErrorResponse) => {
-        this.toastr.error(err.message, "Error")
-      }
-    });
-    this.subs.push(loginSub)
+    return this.httpClient.post("", { user, password });
   }
 }

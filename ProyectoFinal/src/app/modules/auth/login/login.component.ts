@@ -4,23 +4,29 @@ import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { LoginService } from '../../../services/login.service';
+import { HttpErrorResponse } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent implements OnInit, OnDestroy {
 
   loginForm!: FormGroup;
   hasError!: boolean;
   isLoading$: Observable<boolean>;
   subs: Subscription[] = [];
+
   constructor(
     private fb: FormBuilder,
     private AuthService: AuthService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private loginService: LoginService
   ) {
     this.isLoading$ = this.AuthService.isLoading$
     if (this.AuthService.currentUser$) {
@@ -41,6 +47,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   submit() {
+    console.log(this.loginForm.value);
+
     if (!this.loginForm.valid) {
       Object.keys(this.loginForm.controls).forEach(key => {
         this.loginForm.get(key)?.markAsTouched();
@@ -51,8 +59,16 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     console.log(this.loginForm.value);
 
-
     this.AuthService.isLoadingSubject.next(true);
+    const loginSub = this.loginService.login("", "").subscribe({
+      next: () => {
+        this.AuthService.isLoadingSubject.next(false);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.AuthService.isLoadingSubject.next(false);
+        this.toastr.error(err.message, "ERROR");
+      }
+    });
 
     // const loginSubscr = this.AuthService.login(this.f.email.value, this.f.password.value)
     //   .pipe(first())
