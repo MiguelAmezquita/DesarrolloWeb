@@ -19,15 +19,16 @@ export class UserService {
   createUser(user: IUser): Observable<any> {
     user.id = Guid.create().toString();
     user.token = 'auth-token-' + Guid.create().toString();
+    console.log(user);
     return this.httpClient.post<IUser>(API_USERS_URL, user);
   }
 
   deleteUser(id: string) {
-    return this.httpClient.delete<IUser>(`API_USERS_URL/${id}`);
+    return this.httpClient.delete<IUser>(`${API_USERS_URL}/${id}`);
   }
 
   updateUser(user: IUser) {
-    return this.httpClient.put<IUser>(`API_USERS_URL/${user.id}`, user);
+    return this.httpClient.put<IUser>(`${API_USERS_URL}/${user.id}`, user);
   }
 
   getAllUsers(): Observable<IUser[]> {

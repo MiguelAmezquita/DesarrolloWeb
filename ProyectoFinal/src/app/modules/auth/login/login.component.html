@@ -3,28 +3,27 @@
         <label class="form-label">Email</label>
         <div class="input-group has-validation">
             <span class="input-group-text" id="inputGroupPrepend">@</span>
-            <input type="text" name="email" class="form-control" required formControlName="email">
-            <div class="invalid-feedback">Please enter your email.</div>
+            <input type="text" name="email" class="form-control" required formControlName="email"
+                [ngClass]="{ 'is-invalid': loginForm.controls['email'].invalid && loginForm.controls['email'].touched }">
         </div>
+        <div class="is-invalid" *ngIf="loginForm.controls.email.errors?.required && loginForm.controls.email.touched">
+            Ingrese su
+            correo electronico.</div>
+        <div class="is-invalid" *ngIf="loginForm.controls.email.errors?.email && loginForm.controls.email.touched">
+            Ingrese un correo electronico valido.</div>
     </div>
 
     <div class="col-12">
         <label for="password" class="form-label">Password</label>
-        <input type="password" name="password" class="form-control" id="password" required formControlName="password">
-        <div class="invalid-feedback">Please enter your password!</div>
-    </div>
-
-    <div class="col-12">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
-            <label class="form-check-label" for="rememberMe">Remember me</label>
-        </div>
+        <input type="password" name="password" class="form-control" id="password" required formControlName="password"
+            [ngClass]="{ 'is-invalid': loginForm.controls['password'].invalid && loginForm.controls['password'].touched }">
+        <div class="is-invalid"
+            *ngIf="loginForm.controls.password.errors?.required && loginForm.controls.password.touched">
+            Ingrese su
+            contraseña!</div>
     </div>
     <div class="col-12">
         <button class="btn btn-primary w-100" type="submit">Login</button>
     </div>
-    <div class="col-12">
-        <p class="small mb-0">Don't have account? <a href="pages-register.html">Create an
-                account</a></p>
-    </div>
+
 </form>

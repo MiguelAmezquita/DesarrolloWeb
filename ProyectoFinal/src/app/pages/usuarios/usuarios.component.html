@@ -7,7 +7,6 @@
                 <i class="ri-add-fill"></i>
                 Nuevo Usuario
             </button>
-            <button #myModal data-bs-toggle="modal" data-bs-target="#myModal">open modal</button>
         </div>
     </div>
     <div class="card-body">
@@ -20,113 +19,110 @@
                     <th scope="col">Last Name</th>
                     <th scope="col">email</th>
                     <th scope="col">token</th>
+                    <th scope="col" class="text-center">acciones</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let user of users; let i = index" (click)="showModal(user)">
+                <tr *ngFor="let user of users; let i = index">
                     <th scope="row">{{i + 1}}</th>
                     <td>{{user.name}}</td>
                     <td>{{user.lastName}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.token}}</td>
+                    <td class="d-flex justify-content-center">
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal"
+                            (click)="showModal(user)" style="margin-right: 10px;">
+                            <i class="ri-edit-2-line"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger" (click)="deleteUser(user.id)">
+                            <i class="ri-delete-bin-2-fill"></i>
+                        </button>
+                    </td>
                 </tr>
             </tbody>
         </table>
         <!-- End Table with stripped rows -->
     </div>
+</div>
 
-    <ng-template #modalImp let-c="close" let-d="dismiss" class="modal fade" tabindex="-1" role="dialog"
-        aria-hidden="true">
-        <form>
+<div class="modal fade" id="modal" #modal tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <!-- Profile Edit Form -->
+        <form novalidate [formGroup]="form" autocomplete="off">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{modalTitle}}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        #closebutton></button>
                 </div>
                 <div class="modal-body">
                     <div class="row mb-3">
-                        <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
+                        <label for="name" class="col-md-4 col-lg-3 col-form-label">Name</label>
                         <div class="col-md-8 col-lg-9">
-                            <img src="assets/img/profile-img.jpg" alt="Profile">
-                            <div class="pt-2">
-                                <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i
-                                        class="bi bi-upload"></i></a>
-                                <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i
-                                        class="bi bi-trash"></i></a>
-                            </div>
+                            <input name="name" type="text" class="form-control" id="name" formControlName="name"
+                                [ngClass]="{ 'is-invalid': form.controls['name'].invalid && form.controls['name'].touched }">
+                            <span class="is-invalid"
+                                *ngIf="form.controls['name'].invalid && form.controls['name'].touched">Este campo es
+                                requerido</span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="name" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
+                        <div class="col-md-8 col-lg-9">
+                            <input name="lastName" type="text" class="form-control" id="lastName"
+                                formControlName="lastName">
                         </div>
                     </div>
 
                     <div class="row mb-3">
-                        <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
+                        <label for="name" class="col-md-4 col-lg-3 col-form-label">Email</label>
                         <div class="col-md-8 col-lg-9">
-                            <input name="fullName" type="text" class="form-control" id="fullName"
-                                value="Kevin Anderson">
+                            <input name="email" type="text" class="form-control" id="email" formControlName="email"
+                                [ngClass]="{ 'is-invalid': form.controls['email'].invalid && form.controls['email'].touched }">
+                            <span class="is-invalid"
+                                *ngIf="form.controls['email'].errors?.required && form.controls['email'].touched">Este
+                                campo es requerido</span>
+                            <span class="is-invalid"
+                                *ngIf="form.controls['email'].errors?.email && form.controls['email'].touched">Ingrese
+                                un email valido</span>
                         </div>
                     </div>
-
                     <div class="row mb-3">
-                        <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
+                        <label for="name" class="col-md-4 col-lg-3 col-form-label">Password</label>
                         <div class="col-md-8 col-lg-9">
-                            <textarea name="about" class="form-control" id="about"
-                                style="height: 100px">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</textarea>
+                            <input name="password" type="password" class="form-control" id="password"
+                                formControlName="password"
+                                [ngClass]="{ 'is-invalid': form.controls['password'].invalid && form.controls['password'].touched }">
+                            <span class="is-invalid"
+                                *ngIf="form.controls['password'].invalid && form.controls['password'].touched">Este
+                                campo es requerido</span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="name" class="col-md-4 col-lg-3 col-form-label">Confirm Password</label>
+                        <div class="col-md-8 col-lg-9">
+                            <input name="rePassword" type="password" class="form-control" id="rePassword"
+                                formControlName="rePassword"
+                                [ngClass]="{ 'is-invalid': form.controls['rePassword'].invalid && form.controls['rePassword'].touched }">
+                            <span class="is-invalid"
+                                *ngIf="form.controls['rePassword'].errors?.required && form.controls['rePassword'].touched">
+                                Este campo es requerido</span>
+                            <span class="is-invalid"
+                                *ngIf="form.controls['rePassword'].errors?.MustMatch && form.controls['rePassword'].touched">
+                                La contraseña no coinciden</span>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" (click)="submited()">Save changes</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" (click)="submited()"
+                        [disabled]="AuthService.isLoading$ |async">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                            *ngIf="AuthService.isLoading$ | async"></span> {{ (AuthService.isLoading$ | async) ?
+                        "Cargando...":"Guardar"}}
+                    </button>
+                </div>
             </div>
         </form>
-    </ng-template>
-
-    <div class="modal fade" id="modal" #modal tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <!-- Profile Edit Form -->
-            <form>
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">{{modalTitle}}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row mb-3">
-                            <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
-                            <div class="col-md-8 col-lg-9">
-                                <img src="assets/img/profile-img.jpg" alt="Profile">
-                                <div class="pt-2">
-                                    <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i
-                                            class="bi bi-upload"></i></a>
-                                    <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i
-                                            class="bi bi-trash"></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
-                            <div class="col-md-8 col-lg-9">
-                                <input name="fullName" type="text" class="form-control" id="fullName"
-                                    value="Kevin Anderson">
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
-                            <div class="col-md-8 col-lg-9">
-                                <textarea name="about" class="form-control" id="about"
-                                    style="height: 100px">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" (click)="submited()">Save changes</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div><!-- End Vertically centered Modal-->
-
+    </div>
 </div>

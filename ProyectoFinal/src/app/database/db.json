@@ -1,13 +1,21 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "8efbca64-1c77-7e60-1db8-1c62ec046bc1",
       "name": "jose",
       "lastName": "amezquita",
       "email": "jamezquitac1@miumg.edu.gt",
       "password": "123*",
-      "token": "auth-token-9c0a6f0e-2566-1d41-ec1a-a73d2e15f934",
-      "image": ""
+      "rePassword": "123*"
+    },
+    {
+      "id": "d737750f-6c50-a9f9-4a57-4b1d187d6258",
+      "name": "miguel",
+      "lastName": "",
+      "email": "jmiguel@gmail.com",
+      "password": "123*",
+      "rePassword": "123*",
+      "token": "auth-token-8d3474bf-c2ed-e162-94be-7952ee6d26a4"
     }
   ]
 }
