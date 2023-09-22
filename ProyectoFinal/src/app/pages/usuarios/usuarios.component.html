@@ -1,0 +1,128 @@
+<div class="card">
+    <div class="card-header">
+        <div class="d-flex align-items-center justify-content-end">
+            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal"> -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal"
+                (click)="showModal(null)">
+                <i class="ri-book-2-line"></i>
+                Nuevo Usuario
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Usuarios</h5>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">email</th>
+                    <th scope="col">token</th>
+                    <th scope="col" class="text-center">acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users; let i = index">
+                    <th scope="row">{{i + 1}}</th>
+                    <td>{{user.name}}</td>
+                    <td>{{user.lastName}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.token}}</td>
+                    <td class="d-flex justify-content-center">
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal"
+                            (click)="showModal(user)" style="margin-right: 10px;">
+                            <i class="ri-edit-2-line"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger" (click)="deleteUser(user.id)">
+                            <i class="ri-delete-bin-2-fill"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- End Table with stripped rows -->
+    </div>
+</div>
+
+<div class="modal fade" id="modal" #modal tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <!-- Profile Edit Form -->
+        <form novalidate [formGroup]="form" autocomplete="off">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{modalTitle}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        #closebutton></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <label for="name" class="col-md-4 col-lg-3 col-form-label">Name</label>
+                        <div class="col-md-8 col-lg-9">
+                            <input name="name" type="text" class="form-control" id="name" formControlName="name"
+                                [ngClass]="{ 'is-invalid': form.controls['name'].invalid && form.controls['name'].touched }">
+                            <span class="is-invalid"
+                                *ngIf="form.controls['name'].invalid && form.controls['name'].touched">Este campo es
+                                requerido</span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="name" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
+                        <div class="col-md-8 col-lg-9">
+                            <input name="lastName" type="text" class="form-control" id="lastName"
+                                formControlName="lastName">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="name" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                        <div class="col-md-8 col-lg-9">
+                            <input name="email" type="text" class="form-control" id="email" formControlName="email"
+                                [ngClass]="{ 'is-invalid': form.controls['email'].invalid && form.controls['email'].touched }">
+                            <span class="is-invalid"
+                                *ngIf="form.controls['email'].errors?.required && form.controls['email'].touched">Este
+                                campo es requerido</span>
+                            <span class="is-invalid"
+                                *ngIf="form.controls['email'].errors?.email && form.controls['email'].touched">Ingrese
+                                un email valido</span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="name" class="col-md-4 col-lg-3 col-form-label">Password</label>
+                        <div class="col-md-8 col-lg-9">
+                            <input name="password" type="password" class="form-control" id="password"
+                                formControlName="password"
+                                [ngClass]="{ 'is-invalid': form.controls['password'].invalid && form.controls['password'].touched }">
+                            <span class="is-invalid"
+                                *ngIf="form.controls['password'].invalid && form.controls['password'].touched">Este
+                                campo es requerido</span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="name" class="col-md-4 col-lg-3 col-form-label">Confirm Password</label>
+                        <div class="col-md-8 col-lg-9">
+                            <input name="rePassword" type="password" class="form-control" id="rePassword"
+                                formControlName="rePassword"
+                                [ngClass]="{ 'is-invalid': form.controls['rePassword'].invalid && form.controls['rePassword'].touched }">
+                            <span class="is-invalid"
+                                *ngIf="form.controls['rePassword'].errors?.required && form.controls['rePassword'].touched">
+                                Este campo es requerido</span>
+                            <span class="is-invalid"
+                                *ngIf="form.controls['rePassword'].errors?.MustMatch && form.controls['rePassword'].touched">
+                                La contraseña no coinciden</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" (click)="submited()"
+                        [disabled]="AuthService.isLoading$ |async">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                            *ngIf="AuthService.isLoading$ | async"></span> {{ (AuthService.isLoading$ | async) ?
+                        "Cargando...":"Guardar"}}
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

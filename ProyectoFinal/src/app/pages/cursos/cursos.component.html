@@ -1,0 +1,86 @@
+<div class="card">
+    <div class="card-header">
+        <div class="d-flex align-items-center justify-content-end">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal"
+                (click)="showModal(null)">
+                <i class="ri-add-fill"></i>
+                Nuevo Curso
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Cursos</h5>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Codigo Curso</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col" class="text-center">acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let course of courses; let i = index">
+                    <th scope="row">{{i + 1}}</th>
+                    <td>{{course.id}}</td>
+                    <td>{{course.name}}</td>
+                    <td>{{course.description}}</td>
+                    <td class="d-flex justify-content-center">
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal"
+                            (click)="showModal(course)" style="margin-right: 10px;">
+                            <i class="ri-edit-2-line"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger" (click)="deleteCourse(course.id)">
+                            <i class="ri-delete-bin-2-fill"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- End Table with stripped rows -->
+    </div>
+</div>
+
+<div class="modal fade" id="modal" #modal tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <!-- Profile Edit Form -->
+        <form novalidate [formGroup]="form" autocomplete="off">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{modalTitle}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        #closebutton></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <label for="name" class="col-md-4 col-lg-3 col-form-label">Name</label>
+                        <div class="col-md-8 col-lg-9">
+                            <input name="name" type="text" class="form-control" id="name" formControlName="name"
+                                [ngClass]="{ 'is-invalid': form.controls['name'].invalid && form.controls['name'].touched }">
+                            <span class="is-invalid"
+                                *ngIf="form.controls['name'].invalid && form.controls['name'].touched">Este campo es
+                                requerido</span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="name" class="col-md-4 col-lg-3 col-form-label">Description</label>
+                        <div class="col-md-8 col-lg-9">
+                            <textarea rows="4" name="description" type="text" class="form-control" id="description"
+                                formControlName="description"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" (click)="submited()"
+                        [disabled]="AuthService.isLoading$ |async">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                            *ngIf="AuthService.isLoading$ | async"></span> {{ (AuthService.isLoading$ | async) ?
+                        "Cargando...":"Guardar"}}
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

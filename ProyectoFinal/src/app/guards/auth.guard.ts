@@ -13,8 +13,9 @@ export class AuthGuard implements CanActivate, CanLoad {
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return await this.AuthService.validaToken();
   }
+  
 
   async canLoad(route: Route, segments: UrlSegment[]) {
-    return this.AuthService.validaToken();
+    return await this.AuthService.validaToken();
   }
 }

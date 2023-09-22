@@ -1,0 +1,19 @@
+{
+  "usuarios": [
+    {
+      "id": "e5cadfff-2b0e-a2f1-38c2-9728be56491b",
+      "name": "Jose",
+      "lastName": "Amezquita",
+      "email": "jamezquita@gmail.com",
+      "password": "123*",
+      "rePassword": "123*"
+    }
+  ],
+  "cursos": [
+    {
+      "id": "bfe826c3-2b0d-9097-b397-f36a36958287",
+      "name": "Curso 1",
+      "description": "Nombre Curso"
+    }
+  ]
+}

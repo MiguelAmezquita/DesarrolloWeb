@@ -32,7 +32,7 @@ export class AuthService {
   }
 
   async getActiveUser(): Promise<IUser | undefined> {
-    const user = await this.storage.get('User');
+    const user = await this.storage.get('Usuario');
     if (user) {
       const tempUser = JSON.parse(user)
       this.currentUserSubject.next(tempUser)
@@ -47,7 +47,15 @@ export class AuthService {
     await this.getActiveUser();
     if (token != null) {
       this.Token = JSON.parse(token);
+    } else {
+      this.Token = undefined;
     }
+  }
+
+  async saveUser(user: IUser) {
+    this.currentUserSubject.next(user);
+    this.storage.save('Usuario', user);
+    this.storage.save('Token', user.token);
   }
 
   async validaToken(): Promise<boolean> {
